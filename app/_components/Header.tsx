@@ -10,8 +10,12 @@ import {
     NavbarMenuItem
   } from "@nextui-org/navbar";
 import { Button, Image, Link } from '@nextui-org/react';
+import { UserButton, useUser } from '@clerk/nextjs';
 
 function Header() {
+
+    const {user, isSignedIn}=useUser();
+
     const MenuList=[
         {
             name:'דף הבית',
@@ -55,7 +59,15 @@ function Header() {
             ))}
         </NavbarContent>
         <NavbarContent>
-            <Button color='primary'>לחץ כדי להתחיל</Button>
+            <Link href={'/dashboard'}>
+                <Button color='primary'> 
+                    {isSignedIn?
+                    'פרטי משתמש':
+                    'לחץ כדי להתחיל'
+                    }
+                </Button>
+            </Link>
+            <UserButton/>
         </NavbarContent>
         <NavbarMenu>
             {MenuList.map((item,index)=>(
