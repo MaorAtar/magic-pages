@@ -1,10 +1,13 @@
 import { Button } from "@nextui-org/button";
+import Header from "./_components/Header";
 
 export default function Home() {
   return (
-    <div>
-      <h2>Test</h2>
-      <Button color="primary">Test</Button>
+    <div className="bg-[#cad3ff]">
+      {/* Header */}
+      <Header/>
+
+      {/* Hero */}
     </div>
   );
 }
