@@ -1,7 +1,8 @@
 import { Image } from '@nextui-org/react';
 import React, { useState } from 'react'
+import { OptionField } from './StoryType';
 
-function ImageStyle() {
+function ImageStyle({userSelection}:any) {
     const OptionList = [
         {
             label: 'תלת מימדי',
@@ -27,6 +28,14 @@ function ImageStyle() {
 
     const [selectedOption, setSelectedOption]=useState<string>();
 
+    const onUserSelect=(item:OptionField)=>{
+        setSelectedOption(item.label);
+        userSelection({
+            fieldValue:item?.label,
+            fieldName:'storyType'
+        })
+    }
+    
     return (
         <div>
             <label className="font-bold text-4xl text-primary">4. סוג התמונה</label>
@@ -35,11 +44,11 @@ function ImageStyle() {
                     <div key={index} className={`"relative grayscale hover:grayscale-0 cursor-pointer p-1"
                         ${selectedOption==item.label?'grayscale-0':'grayscale'}
                         `}
-                    onClick={()=>setSelectedOption(item.label)}>
+                    onClick={()=>onUserSelect(item)}>
                         <Image 
                             src={item.imageUrl} 
                             alt={item.label} 
-                            width={180} 
+                            width={260} 
                             height={180}
                             className="object-cover h-[120px] rounded-3xl"
                         />

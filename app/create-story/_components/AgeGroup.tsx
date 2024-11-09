@@ -1,7 +1,8 @@
 import { Image } from '@nextui-org/react';
 import React, { useState } from 'react'
+import { OptionField } from './StoryType';
 
-function AgeGroup() {
+function AgeGroup({userSelection}:any) {
     const OptionList = [
         {
             label: 'גילאי 0-2',
@@ -22,6 +23,14 @@ function AgeGroup() {
 
     const [selectedOption, setSelectedOption]=useState<string>();
 
+    const onUserSelect=(item:OptionField)=>{
+        setSelectedOption(item.label);
+        userSelection({
+            fieldValue:item?.label,
+            fieldName:'storyType'
+        })
+    }
+
     return (
         <div>
             <label className="font-bold text-4xl text-primary">3. קבוצות גילאים</label>
@@ -30,7 +39,7 @@ function AgeGroup() {
                     <div key={index} className={`"relative grayscale hover:grayscale-0 cursor-pointer p-1"
                         ${selectedOption==item.label?'grayscale-0':'grayscale'}
                         `}
-                    onClick={()=>setSelectedOption(item.label)}>
+                    onClick={()=>onUserSelect(item)}>
                         <Image 
                             src={item.imageUrl} 
                             alt={item.label} 

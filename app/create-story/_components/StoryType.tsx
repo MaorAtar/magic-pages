@@ -3,7 +3,13 @@
 import { Image } from '@nextui-org/react';
 import React, { useState } from 'react';
 
-function StoryType() {
+export interface OptionField {
+    label:string,
+    imageUrl:string,
+    isFree:boolean
+}
+
+function StoryType({userSelection}:any) {
     const OptionList = [
         {
             label: 'סיפור',
@@ -24,6 +30,14 @@ function StoryType() {
 
     const [selectedOption, setSelectedOption]=useState<string>();
 
+    const onUserSelect=(item:OptionField)=>{
+        setSelectedOption(item.label);
+        userSelection({
+            fieldValue:item?.label,
+            fieldName:'storyType'
+        })
+    }
+
     return (
         <div>
             <label className="font-bold text-4xl text-primary">2. סוג הסיפור</label>
@@ -32,7 +46,7 @@ function StoryType() {
                     <div key={index} className={`"relative grayscale hover:grayscale-0 cursor-pointer p-1"
                         ${selectedOption==item.label?'grayscale-0':'grayscale'}
                         `}
-                    onClick={()=>setSelectedOption(item.label)}>
+                    onClick={()=>onUserSelect(item)}>
                         <Image 
                             src={item.imageUrl} 
                             alt={item.label} 
