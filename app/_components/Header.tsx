@@ -38,7 +38,7 @@ function Header() {
     const [isMenuOpen,setIsMenuOpen]=useState(false);
 
   return (
-    <Navbar maxWidth='full' onMenuOpenChange={setIsMenuOpen}>
+    <Navbar maxWidth='full' onMenuOpenChange={setIsMenuOpen} className='bg-white'>
         <NavbarContent>
             <NavbarMenuToggle 
             aria-label={isMenuOpen?"Close menu":"Open menu"}
