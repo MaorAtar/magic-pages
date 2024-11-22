@@ -38,7 +38,7 @@ function Header() {
     const [isMenuOpen,setIsMenuOpen]=useState(false);
 
   return (
-    <Navbar maxWidth='full' onMenuOpenChange={setIsMenuOpen} className='bg-white'>
+    <Navbar maxWidth='full' onMenuOpenChange={setIsMenuOpen} className='primary'>
         <NavbarContent>
             <NavbarMenuToggle 
             aria-label={isMenuOpen?"Close menu":"Open menu"}
@@ -62,7 +62,7 @@ function Header() {
             <Link href={'/dashboard'}>
                 <Button color='primary'> 
                     {isSignedIn?
-                    'פרטי משתמש':
+                    'הספרים שלי':
                     'לחץ כדי להתחיל'
                     }
                 </Button>
