@@ -173,7 +173,7 @@ function CreateStory() {
   };
 
   return (
-    <div className="p-10 md:px-20 lg:px-40">
+    <div dir='rtl' className="p-10 md:px-20 lg:px-40">
       <h2 className="font-extrabold text-[70px] text-primary text-center">צור סיפור</h2>
       <p className="text-2xl text-primary text-center">!השתמשו ביצירתיות ובבינה מלאכותית כדי ליצור סיפורים קסומים ומותאמים אישית לילדיכם - מסעות דמיון שנבנים בלחיצת כפתור</p>
 
@@ -187,7 +187,9 @@ function CreateStory() {
         <Button color="primary" className="p-10 text-2xl" disabled={loading} onClick={GenerateStory}>
           צור סיפור
         </Button>
-        <span>עלות של מטבע 1 לשימוש</span>
+        <span className="text-sm font-medium text-primary bg-gray-100 rounded-full px-4 py-1 mt-2 border border-primary shadow-sm">
+          עלות של מטבע 1 לשימוש
+        </span>
       </div>
       <CustomLoader isLoading={loading} />
     </div>

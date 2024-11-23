@@ -10,6 +10,7 @@ import { db } from '@/config/db'
 import { eq } from 'drizzle-orm'
 import { useUser } from '@clerk/nextjs'
 import { UserDetailContext } from './_context/UserDetailContext'
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function Provider({children}:{children: React.ReactNode}) {
 
@@ -45,12 +46,14 @@ function Provider({children}:{children: React.ReactNode}) {
 
   return (
     <UserDetailContext.Provider value = {{userDetail, setUserDetail}}>
+      <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID??'', currency: "ILS" }}>
         <NextUIProvider>
                     {/* Header */}
                     <Header/>
             {children}
             <ToastContainer />
         </NextUIProvider>
+      </PayPalScriptProvider>
     </UserDetailContext.Provider>
   )
 }

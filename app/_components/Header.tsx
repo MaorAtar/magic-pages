@@ -38,7 +38,7 @@ function Header() {
     const [isMenuOpen,setIsMenuOpen]=useState(false);
 
   return (
-    <Navbar maxWidth='full' onMenuOpenChange={setIsMenuOpen} className='primary'>
+    <Navbar dir='rtl' maxWidth='full' onMenuOpenChange={setIsMenuOpen} className='primary'>
         <NavbarContent>
             <NavbarMenuToggle 
             aria-label={isMenuOpen?"Close menu":"Open menu"}
@@ -46,7 +46,7 @@ function Header() {
             />
             <NavbarBrand>
                 <Image src={'/logo.svg'} alt='logo' width={40} height={40} />
-                <h2 className='font-bold text-2xl text-primary ml-3'>Magic Pages</h2>
+                <h2 className='font-bold text-2xl text-primary mr-3'>Magic Pages</h2>
             </NavbarBrand>
         </NavbarContent>
         <NavbarContent justify='center' className='hidden sm:flex'>
