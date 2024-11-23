@@ -9,10 +9,6 @@ Dive into the world of AI-powered storytelling!
 
 This Next.js application offers a fun and interactive experience for kids, where they can generate creative stories with the help of AI.
 
-## Features
-
-Sami-Quizzer AI offers a comprehensive suite of features tailored to the specific needs of three distinct user roles: Students, Educators, and Institution Managers.
-
 ### Key Features
 
 1. Intuitive Interface: 
