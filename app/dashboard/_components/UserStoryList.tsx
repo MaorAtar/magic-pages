@@ -9,6 +9,7 @@ import StoryItemCard from './StoryItemCard';
 import CustomLoader from '@/app/create-story/_components/CustomLoader';
 
 export type StoryItemType = {
+    [x: string]: any;
     ageGroup:string,
     coverImage:string,
     id:number,
