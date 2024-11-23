@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import StorySubjectInput from './_components/StorySubjectInput';
 import StoryType from './_components/StoryType';
 import AgeGroup from './_components/AgeGroup';
@@ -8,7 +8,7 @@ import ImageStyle from './_components/ImageStyle';
 import { Button } from '@nextui-org/button';
 import { chatSession } from '@/config/GeminiAi';
 import { db } from '@/config/db';
-import { StoryData } from '@/config/schema';
+import { StoryData, Users } from '@/config/schema';
 import uuid4 from "uuid4";
 import CustomLoader from './_components/CustomLoader';
 import axios from 'axios';
@@ -17,6 +17,8 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 import { toast } from 'react-toastify';
+import { UserDetailContext } from '../_context/UserDetailContext';
+import { eq } from 'drizzle-orm';
 
 const CREATE_STORY_PROMPT = process.env.NEXT_PUBLIC_CREATE_STORY_PROMPT;
 
@@ -39,6 +41,7 @@ function CreateStory() {
   const notify = (msg:string) => toast(msg);
   const notifyError = (msg:string) => toast.error(msg);
   const {user} = useUser();
+  const {userDetail, setUserDetail} = useContext(UserDetailContext);
 
   const onHandleUserSelection = (data: fieldData) => {
     setFormData((prev: any) => ({
@@ -49,6 +52,11 @@ function CreateStory() {
   };
 
   const GenerateStory = async () => {
+    if(userDetail.credit <= 0) {
+      notifyError('!אין לך מספיק מטבעות');
+      return;
+    }
+
     setLoading(true);
     const FINAL_PROMPT = CREATE_STORY_PROMPT
       ?.replace('{ageGroup}', formData?.ageGroup ?? '')
@@ -79,12 +87,14 @@ function CreateStory() {
       console.log(resp);
       router?.replace('/view-story/' + resp[0].storyId);
       notify("!סיפור נוצר בהצלחה");
+      await UpdateUserCredits();
       setLoading(false);
     } catch (e) {
       console.log(e);
       notifyError('שגיאה, אנא נסה שוב')
       setLoading(false);
     }
+    
   };
 
   const SaveInDB=async(output:string, imageUrl:string)=>{
@@ -109,6 +119,13 @@ function CreateStory() {
       notifyError('שגיאה, אנא נסה שוב')
       setLoading(false);
     }
+  }
+
+  const UpdateUserCredits = async () => {
+    const result = await db.update(Users).set({
+      credit: Number(userDetail?.credit-1)
+    }).where(eq(Users.userEmail, user?.primaryEmailAddress?.emailAddress??''))
+    .returning({id:Users.id})
   }
 
   const uploadImageToFirebase = async (imageUrl: string) => {
@@ -166,10 +183,11 @@ function CreateStory() {
         <AgeGroup userSelection={onHandleUserSelection} />
         <ImageStyle userSelection={onHandleUserSelection} />
       </div>
-      <div className="flex justify-end my-10">
+      <div className="flex justify-end my-10 flex-col items-end">
         <Button color="primary" className="p-10 text-2xl" disabled={loading} onClick={GenerateStory}>
           צור סיפור
         </Button>
+        <span>עלות של מטבע 1 לשימוש</span>
       </div>
       <CustomLoader isLoading={loading} />
     </div>

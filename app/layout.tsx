@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Provider from "./provider";
 import {Nunito} from 'next/font/google';
+import { ClerkProvider } from "@clerk/nextjs";
+import { heIL } from "@clerk/localizations";
 
 const MyAppFont=Nunito({subsets:['latin']});
 
@@ -16,6 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider localization={heIL}>
     <html lang="en">
       <body
         className={MyAppFont.className}
@@ -25,5 +28,6 @@ export default function RootLayout({
         </Provider>
       </body>
     </html>
+    </ ClerkProvider>
   );
 }
