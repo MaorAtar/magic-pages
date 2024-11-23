@@ -8,7 +8,7 @@ import { desc, eq } from 'drizzle-orm'
 import StoryItemCard from './StoryItemCard';
 import CustomLoader from '@/app/create-story/_components/CustomLoader';
 
-type StoryItemType = {
+export type StoryItemType = {
     ageGroup:string,
     coverImage:string,
     id:number,
