@@ -91,7 +91,7 @@ function CreateStory() {
       setLoading(false);
     } catch (e) {
       console.log(e);
-      notifyError('שגיאה, אנא נסה שוב')
+      //notifyError('שגיאה, אנא נסה שוב')
       setLoading(false);
     }
     
@@ -116,7 +116,7 @@ function CreateStory() {
       setLoading(false);
       return result;
     } catch(e) {
-      notifyError('שגיאה, אנא נסה שוב')
+      //notifyError('שגיאה, אנא נסה שוב')
       setLoading(false);
     }
   }
@@ -143,7 +143,7 @@ function CreateStory() {
       return downloadUrl;
     } catch (error) {
       console.error("Error uploading image to Firebase:", error);
-      notifyError('שגיאה, אנא נסה שוב')
+      //notifyError('שגיאה, אנא נסה שוב')
       throw error;
     }
   };
@@ -154,7 +154,7 @@ function CreateStory() {
       return Buffer.from(response.data);
     } catch (error) {
       console.error("Error downloading image:", error);
-      notifyError('שגיאה, אנא נסה שוב')
+      //notifyError('שגיאה, אנא נסה שוב')
       return null;
     }
   };
@@ -167,7 +167,7 @@ function CreateStory() {
       return translatedText || null;
     } catch (error) {
       console.error("Translation error:", error);
-      notifyError('שגיאה, אנא נסה שוב')
+      //notifyError('שגיאה, אנא נסה שוב')
       return null;
     }
   };
