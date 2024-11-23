@@ -16,7 +16,7 @@ function ImageStyle({userSelection}:any) {
         },
         {
             label: 'צבעי מים',
-            imageUrl: '/waterColor.png',
+            imageUrl: '/watercolor.png',
             isFree: true
         },
         {
